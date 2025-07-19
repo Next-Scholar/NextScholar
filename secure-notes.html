@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Secure NCERT Notes</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      user-select: none; /* Block text selection */
+    }
+    .note-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      line-height: 1.6;
+    }
+    h2 { text-align: center; }
+
+    .button-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .button-bar button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .hd-pdf {
+      background: #007bff;
+      color: white;
+    }
+    .download-pdf {
+      background: #dc3545;
+      color: white;
+    }
+  </style>
+
+  <script>
+    // Disable right-click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Block PrintScreen (partial)
+    document.addEventListener("keyup", e => {
+      if (e.key === "PrintScreen") {
+        document.body.style.filter = "blur(6px)";
+        alert("Screenshot blocked!");
+      }
+    });
+
+    // Disable copy
+    document.addEventListener('copy', function(e) {
+      e.preventDefault();
+      alert("Copying is disabled!");
+    });
+  </script>
+</head>
+<body>
+
+  <div class="note-container">
+    <div class="button-bar">
+      <a href="https://example.com/your-hd-pdf.pdf" target="_blank">
+        <button class="hd-pdf">📘 View HD PDF</button>
+      </a>
+      <a href="https://example.com/your-download-pdf.pdf" download>
+        <button class="download-pdf">🔻 Download PDF</button>
+      </a>
+    </div>
+
+    <h2>Class 10 – History Chapter 1<br>The Rise of Nationalism in Europe</h2>
+    <ol>
+      <li>In 1848, Frederic Sorrieu, a French artist, prepared a series of four prints...</li>
+      <li>Artists of the French Revolution personified Liberty as a female figure.</li>
+      <li>According to Sorrieu’s utopian vision, people of the world grouped as nations...</li>
+      <li>This chapter will deal with issues visualized by Sorrieu.</li>
+      <li>Nationalism emerged as a powerful force in 19th-century Europe.</li>
+      <li>The end result was the rise of the <em>nation-state</em> in place of empires.</li>
+    </ol>
+
+    <h3>The French Revolution and the Idea of Nation</h3>
+    <ol>
+      <li>The first clear expression of nationalism came with the French Revolution in 1789.</li>
+      <li>Transfer of power from monarchy to citizens.</li>
+      <li>The idea of <em>la patrie</em> (fatherland) and <em>le citoyen</em> (citizen) was born.</li>
+      <li>The Estates General was renamed the National Assembly.</li>
+      <li>Uniform system of weights, duties, and laws was introduced.</li>
+    </ol>
+  </div>
+
+</body>
+</html>
