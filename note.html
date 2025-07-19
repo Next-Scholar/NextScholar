@@ -132,14 +132,14 @@
     <h1>Class Notes</h1>
     <p style="text-align: center;">Welcome to the Notes section of Next Scholar! Here you'll find easy, organized, and downloadable study material for Class 10 and beyond.</p>
 
-    <!-- SST Notes (with images) -->
+    <!-- SST Notes (Auto Load) -->
     <h2>SST</h2>
-    <div class="note-container">
+    <div class="note-container" id="sst-container">
       <button class="nav-btn left" onclick="prevNote()">&#10094;</button>
-      <img id="sst-image" src="https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/sst1.jpg" alt="SST Note">
+      <img id="sst-image" src="" alt="SST Note" style="display: none;">
       <button class="nav-btn right" onclick="nextNote()">&#10095;</button>
     </div>
-    <div class="pdf-buttons">
+    <div class="pdf-buttons" id="sst-buttons" style="display: none;">
       <button><i class="fas fa-file-pdf"></i> HD PDF</button>
       <button><i class="fas fa-download"></i> DOWNLOAD PDF</button>
     </div>
@@ -175,11 +175,39 @@
   </div>
 
   <script>
-    const sstImages = [
-      "https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/sst1.jpg",
-      "https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/sst2.jpg"
-    ]; // replace with your images
+    let sstImages = [];
     let currentSST = 0;
+
+    async function loadSSTImages() {
+      let i = 1;
+      while (true) {
+        const url = `https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/sst${i}.jpg`;
+        try {
+          const res = await fetch(url);
+          if (!res.ok) break;
+          sstImages.push(url);
+          i++;
+        } catch {
+          break;
+        }
+      }
+
+      const imgEl = document.getElementById('sst-image');
+      const btns = document.getElementById('sst-buttons');
+      const container = document.getElementById('sst-container');
+
+      if (sstImages.length > 0) {
+        imgEl.style.display = 'inline';
+        btns.style.display = 'block';
+        showSSTImage();
+      } else {
+        container.innerHTML = `
+          <div class="coming-soon">
+            <span>😔</span>
+            Notes will be posted soon
+          </div>`;
+      }
+    }
 
     function showSSTImage() {
       document.getElementById('sst-image').src = sstImages[currentSST];
@@ -194,6 +222,9 @@
       currentSST = (currentSST - 1 + sstImages.length) % sstImages.length;
       showSSTImage();
     }
+
+    // Start on load
+    window.onload = loadSSTImages;
   </script>
 
 </body>
