@@ -3,126 +3,220 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Notes</title>
+  <title>Notes - Next Scholar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
-      font-family: sans-serif;
-      background-color: #f4f4f4;
-      text-align: center;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/MAIN%20BACKGROUND%20IMAGE.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: flex-end;
       padding: 20px;
     }
-    h1 {
-      font-size: 36px;
-      color: #333;
+
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
     }
-    h2 {
-      font-size: 28px;
-      margin-top: 40px;
-      color: #444;
-    }
-    .coming-soon {
+
+    .box {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
       padding: 30px;
-      font-size: 18px;
-      background-color: white;
-      margin: 20px auto;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      margin: 40px auto;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
     }
-    .slider {
-      max-width: 600px;
-      margin: 20px auto;
+
+    h1 {
+      font-size: 3rem;
+      color: #00d9ff;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    }
+
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-top: 40px;
+      color: #fff;
+      text-shadow: 1px 1px 4px black;
+    }
+
+    .note-container {
+      text-align: center;
       position: relative;
+      margin-top: 20px;
     }
-    .slide-img {
-      width: 100%;
-      border-radius: 12px;
-      height: auto;
+
+    .note-container img {
+      max-width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
-    .slider-btn {
-      margin: 10px;
-      padding: 10px 20px;
-      background-color: #555;
-      color: white;
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 32px;
+      background: none;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    button.download-btn {
-      padding: 12px 20px;
-      background-color: #00BCD4;
       color: white;
-      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .nav-btn.left { left: 5%; }
+    .nav-btn.right { right: 5%; }
+
+    .pdf-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .pdf-buttons button {
+      background-color: #00d9ff;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
       border: none;
       border-radius: 10px;
-      margin: 20px 0;
+      font-size: 16px;
       cursor: pointer;
+    }
+
+    .coming-soon {
+      text-align: center;
+      background-color: white;
+      color: black;
+      padding: 40px;
+      border-radius: 15px;
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    .coming-soon span {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/LOGO.jpg" alt="Logo">
+  </header>
 
-  <h1>📚 Class Notes</h1>
+  <div class="box">
+    <h1>Class Notes</h1>
+    <p style="text-align: center;">Welcome to the Notes section of Next Scholar! Organized subject-wise with image previews and download buttons.</p>
 
-  <!-- Geography -->
-  <h2>Geography</h2>
-  <div class="slider">
-    <img id="geoSlide" class="slide-img" src="https://your-site.github.io/notes/geo1.jpg" alt="Geo Note">
-    <div>
-      <button class="slider-btn" onclick="changeSlide(-1)">←</button>
-      <button class="slider-btn" onclick="changeSlide(1)">→</button>
-    </div>
+    <!-- Subject Sections -->
+    <div id="subjects"></div>
   </div>
 
-  <button class="download-btn" onclick="downloadAll()">⬇️ Download All Notes</button>
-
-  <!-- Other Subjects -->
-  <h2>History</h2>
-  <div class="coming-soon">📜 Notes will be posted soon</div>
-
-  <h2>Political Science</h2>
-  <div class="coming-soon">📘 Notes will be posted soon</div>
-
-  <h2>Economics</h2>
-  <div class="coming-soon">💰 Notes will be posted soon</div>
-
-  <h2>Physics</h2>
-  <div class="coming-soon">⚛️ Notes will be posted soon</div>
-
-  <h2>Chemistry</h2>
-  <div class="coming-soon">🧪 Notes will be posted soon</div>
-
-  <h2>Biology</h2>
-  <div class="coming-soon">🧬 Notes will be posted soon</div>
-
-  <!-- JS -->
   <script>
-    const geoImages = [
-      'https://your-site.github.io/notes/geo1.jpg',
-      'https://your-site.github.io/notes/geo2.jpg'
-      // Add more image URLs here
+    const subjects = [
+      "geography", "history", "civics", "economics",
+      "physics", "chemistry", "biology"
     ];
-    let geoIndex = 0;
 
-    function changeSlide(n) {
-      geoIndex += n;
-      if (geoIndex < 0) geoIndex = geoImages.length - 1;
-      if (geoIndex >= geoImages.length) geoIndex = 0;
-      document.getElementById('geoSlide').src = geoImages[geoIndex];
+    const subjectsDiv = document.getElementById("subjects");
+
+    subjects.forEach(subject => {
+      subjectsDiv.innerHTML += `
+        <h2>${capitalize(subject)}</h2>
+        <div class="note-container" id="${subject}-container">
+          <button class="nav-btn left" onclick="prevNote('${subject}')">&#10094;</button>
+          <img id="${subject}-image" src="" alt="${subject} Note" style="display: none;">
+          <button class="nav-btn right" onclick="nextNote('${subject}')">&#10095;</button>
+        </div>
+        <div class="pdf-buttons" id="${subject}-buttons" style="display: none;">
+          <button onclick="downloadAll('${subject}')">
+            <i class="fas fa-download"></i> DOWNLOAD ALL
+          </button>
+        </div>
+      `;
+    });
+
+    const imageMap = {};
+    const currentIndex = {};
+
+    subjects.forEach(loadSubjectImages);
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    function downloadAll() {
-      geoImages.forEach(url => {
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = url.split('/').pop();
+    async function loadSubjectImages(subject) {
+      imageMap[subject] = [];
+      currentIndex[subject] = 0;
+      let i = 1;
+      while (true) {
+        const url = `https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/${subject}${i}.jpg`;
+        try {
+          const res = await fetch(url);
+          if (!res.ok) break;
+          imageMap[subject].push(url);
+          i++;
+        } catch {
+          break;
+        }
+      }
+
+      const imgEl = document.getElementById(`${subject}-image`);
+      const btns = document.getElementById(`${subject}-buttons`);
+      const container = document.getElementById(`${subject}-container`);
+
+      if (imageMap[subject].length > 0) {
+        imgEl.style.display = 'inline';
+        btns.style.display = 'block';
+        showImage(subject);
+      } else {
+        container.innerHTML = `
+          <div class="coming-soon">
+            <span>😔</span>
+            Notes will be posted soon
+          </div>`;
+      }
+    }
+
+    function showImage(subject) {
+      document.getElementById(`${subject}-image`).src = imageMap[subject][currentIndex[subject]];
+    }
+
+    function nextNote(subject) {
+      currentIndex[subject] = (currentIndex[subject] + 1) % imageMap[subject].length;
+      showImage(subject);
+    }
+
+    function prevNote(subject) {
+      currentIndex[subject] = (currentIndex[subject] - 1 + imageMap[subject].length) % imageMap[subject].length;
+      showImage(subject);
+    }
+
+    async function downloadAll(subject) {
+      for (let i = 0; i < imageMap[subject].length; i++) {
+        const a = document.createElement("a");
+        a.href = imageMap[subject][i];
+        a.download = `${subject}${i+1}.jpg`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-      });
+      }
     }
   </script>
-
 </body>
 </html>
