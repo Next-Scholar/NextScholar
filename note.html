@@ -65,7 +65,7 @@
     }
 
     .note-container img {
-      max-width: 90%;
+      max-width: 100%;
       border-radius: 15px;
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
@@ -132,47 +132,64 @@
     <h1>Class Notes</h1>
     <p style="text-align: center;">Welcome to the Notes section of Next Scholar! Here you'll find easy, organized, and downloadable study material for Class 10 and beyond.</p>
 
-    <!-- SST Section -->
-    <h2>SST</h2>
-    <div class="note-container" id="sst-container">
-      <button class="nav-btn left" onclick="prevNote()">&#10094;</button>
-      <img id="sst-image" src="" alt="SST Note" style="display: none;">
-      <button class="nav-btn right" onclick="nextNote()">&#10095;</button>
+    <!-- Geography Image Viewer -->
+    <h2>Geography</h2>
+    <div class="note-container" id="geo-container">
+      <button class="nav-btn left" onclick="prevGeo()">&#10094;</button>
+      <img id="geo-image" src="" alt="Geography Note" style="display: none;">
+      <button class="nav-btn right" onclick="nextGeo()">&#10095;</button>
     </div>
-    <div class="pdf-buttons" id="sst-buttons" style="display: none;">
-      <button onclick="downloadAllSST()"><i class="fas fa-download"></i> Download All Notes</button>
+    <div class="pdf-buttons" id="geo-buttons" style="display: none;">
+      <button onclick="downloadAllGeo()"><i class="fas fa-download"></i> Download All Notes</button>
     </div>
 
-    <!-- More subjects here if you want -->
+    <!-- Other SST Subjects -->
+    <h2>History</h2>
+    <div class="coming-soon">
+      <span>📜</span>
+      Notes will be posted soon
+    </div>
+
+    <h2>Political Science</h2>
+    <div class="coming-soon">
+      <span>🏛️</span>
+      Notes will be posted soon
+    </div>
+
+    <h2>Economics</h2>
+    <div class="coming-soon">
+      <span>💹</span>
+      Notes will be posted soon
+    </div>
 
   </div>
 
   <script>
-    let sstImages = [];
-    let currentSST = 0;
+    let geoImages = [];
+    let currentGeo = 0;
 
-    async function loadSSTImages() {
+    async function loadGeoImages() {
       let i = 1;
       while (true) {
         const url = `https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/sst${i}.jpg`;
         try {
           const res = await fetch(url);
           if (!res.ok) break;
-          sstImages.push(url);
+          geoImages.push(url);
           i++;
         } catch {
           break;
         }
       }
 
-      const imgEl = document.getElementById('sst-image');
-      const btns = document.getElementById('sst-buttons');
-      const container = document.getElementById('sst-container');
+      const imgEl = document.getElementById('geo-image');
+      const btns = document.getElementById('geo-buttons');
+      const container = document.getElementById('geo-container');
 
-      if (sstImages.length > 0) {
+      if (geoImages.length > 0) {
         imgEl.style.display = 'inline';
         btns.style.display = 'block';
-        showSSTImage();
+        showGeoImage();
       } else {
         container.innerHTML = `
           <div class="coming-soon">
@@ -182,32 +199,36 @@
       }
     }
 
-    function showSSTImage() {
-      document.getElementById('sst-image').src = sstImages[currentSST];
+    function showGeoImage() {
+      document.getElementById('geo-image').src = geoImages[currentGeo];
     }
 
-    function nextNote() {
-      currentSST = (currentSST + 1) % sstImages.length;
-      showSSTImage();
+    function nextGeo() {
+      currentGeo = (currentGeo + 1) % geoImages.length;
+      showGeoImage();
     }
 
-    function prevNote() {
-      currentSST = (currentSST - 1 + sstImages.length) % sstImages.length;
-      showSSTImage();
+    function prevGeo() {
+      currentGeo = (currentGeo - 1 + geoImages.length) % geoImages.length;
+      showGeoImage();
     }
 
-    function downloadAllSST() {
-      sstImages.forEach((url, index) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `sst${index + 1}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    function downloadAllGeo() {
+      geoImages.forEach((url, index) => {
+        fetch(url)
+          .then(res => res.blob())
+          .then(blob => {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `geography${index + 1}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
       });
     }
 
-    window.onload = loadSSTImages;
+    window.onload = loadGeoImages;
   </script>
 
 </body>
