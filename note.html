@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-17G7NBYKKH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-17G7NBYKKH');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Notes - Next Scholar</title>
@@ -141,7 +132,7 @@
     <h1>Class Notes</h1>
     <p style="text-align: center;">Welcome to the Notes section of Next Scholar! Here you'll find easy, organized, and downloadable study material for Class 10 and beyond.</p>
 
-    <!-- SST Notes (Auto Load) -->
+    <!-- SST Section -->
     <h2>SST</h2>
     <div class="note-container" id="sst-container">
       <button class="nav-btn left" onclick="prevNote()">&#10094;</button>
@@ -149,37 +140,10 @@
       <button class="nav-btn right" onclick="nextNote()">&#10095;</button>
     </div>
     <div class="pdf-buttons" id="sst-buttons" style="display: none;">
-      <button><i class="fas fa-file-pdf"></i> HD PDF</button>
-      <button><i class="fas fa-download"></i> DOWNLOAD PDF</button>
+      <button onclick="downloadAllSST()"><i class="fas fa-download"></i> Download All Notes</button>
     </div>
 
-    <!-- Maths Notes -->
-    <h2>Maths</h2>
-    <div class="coming-soon">
-      <span>😔</span>
-      Notes will be posted soon
-    </div>
-
-    <!-- Science Notes -->
-    <h2>Science</h2>
-    <div class="coming-soon">
-      <span>📄</span>
-      Notes will be posted soon
-    </div>
-
-    <!-- English Notes -->
-    <h2>English</h2>
-    <div class="coming-soon">
-      <span>😔</span>
-      Notes will be posted soon
-    </div>
-
-    <!-- Hindi Notes -->
-    <h2>Hindi</h2>
-    <div class="coming-soon">
-      <span>📚</span>
-      Notes will be posted soon
-    </div>
+    <!-- More subjects here if you want -->
 
   </div>
 
@@ -232,7 +196,17 @@
       showSSTImage();
     }
 
-    // Start on load
+    function downloadAllSST() {
+      sstImages.forEach((url, index) => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `sst${index + 1}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+
     window.onload = loadSSTImages;
   </script>
 
