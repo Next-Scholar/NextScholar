@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Notes - Next Scholar</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -12,7 +12,7 @@
       padding: 0;
       font-family: 'Poppins', sans-serif;
       background: url('https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/MAIN%20BACKGROUND%20IMAGE.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-size: 1500px auto;
       color: white;
     }
 
@@ -34,8 +34,8 @@
       background-color: rgba(0, 0, 0, 0.6);
       border-radius: 20px;
       padding: 30px;
-      max-width: 1000px;
-      margin: 40px auto;
+      max-width: 900px;
+      margin: 60px auto;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
     }
 
@@ -86,7 +86,7 @@
       margin: 20px 0;
     }
 
-    .pdf-buttons button {
+    .pdf-buttons a {
       background-color: #00d9ff;
       color: white;
       padding: 10px 20px;
@@ -95,6 +95,8 @@
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .coming-soon {
@@ -115,108 +117,117 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/LOGO.jpg" alt="Logo">
-  </header>
 
-  <div class="box">
-    <h1>Class Notes</h1>
-    <p style="text-align: center;">Welcome to the Notes section of Next Scholar! Organized subject-wise with image previews and download buttons.</p>
+<header>
+  <img src="https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/LOGO.jpg" alt="Logo">
+</header>
 
-    <!-- Subject Sections -->
-    <div id="subjects"></div>
-  </div>
+<div class="box">
+  <h1>Class Notes</h1>
+  <p style="text-align: center;">Welcome to the Notes section of Next Scholar! All subject-wise notes are organized below.</p>
 
-  <script>
-    const subjects = [
-      "geography", "history", "civics", "economics",
-      "physics", "chemistry", "biology"
-    ];
+  <!-- Subject List -->
+  <div id="subjects"></div>
+</div>
 
-    const subjectsDiv = document.getElementById("subjects");
+<script>
+  const subjects = {
+    Geography: {
+      prefix: "sst",
+      count: 1,
+      zip: "geography.zip"
+    },
+    History: {
+      prefix: "history",
+      count: 0,
+      zip: "history.zip"
+    },
+    Civics: {
+      prefix: "civics",
+      count: 0,
+      zip: "civics.zip"
+    },
+    Economics: {
+      prefix: "economics",
+      count: 0,
+      zip: "economics.zip"
+    },
+    Physics: {
+      prefix: "physics",
+      count: 0,
+      zip: "physics.zip"
+    },
+    Chemistry: {
+      prefix: "chemistry",
+      count: 0,
+      zip: "chemistry.zip"
+    },
+    Biology: {
+      prefix: "biology",
+      count: 0,
+      zip: "biology.zip"
+    }
+  };
 
-    subjects.forEach(subject => {
-      subjectsDiv.innerHTML += `
-        <h2>${capitalize(subject)}</h2>
-        <div class="note-container" id="${subject}-container">
-          <button class="nav-btn left" onclick="prevNote('${subject}')">&#10094;</button>
-          <img id="${subject}-image" src="" alt="${subject} Note" style="display: none;">
-          <button class="nav-btn right" onclick="nextNote('${subject}')">&#10095;</button>
-        </div>
-        <div class="pdf-buttons" id="${subject}-buttons" style="display: none;">
-          <button onclick="downloadAll('${subject}')">
-            <i class="fas fa-download"></i> DOWNLOAD ALL
-          </button>
+  const repoURL = "https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/";
+
+  const subjectsDiv = document.getElementById("subjects");
+
+  for (const [name, { prefix, count, zip }] of Object.entries(subjects)) {
+    const container = document.createElement("div");
+    container.innerHTML = `<h2>${name}</h2>`;
+
+    if (count > 0) {
+      const imgBox = document.createElement("div");
+      imgBox.className = "note-container";
+      imgBox.id = `${prefix}-container`;
+
+      imgBox.innerHTML = `
+        <button class="nav-btn left" onclick="prevNote('${prefix}')">&#10094;</button>
+        <img id="${prefix}-image" src="${repoURL + prefix}1.jpg" alt="${name} Note">
+        <button class="nav-btn right" onclick="nextNote('${prefix}')">&#10095;</button>
+      `;
+      container.appendChild(imgBox);
+
+      container.innerHTML += `
+        <div class="pdf-buttons">
+          <a href="${repoURL + zip}" download>
+            <i class="fas fa-download"></i> Download All Notes
+          </a>
         </div>
       `;
-    });
-
-    const imageMap = {};
-    const currentIndex = {};
-
-    subjects.forEach(loadSubjectImages);
-
-    function capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
+    } else {
+      container.innerHTML += `
+        <div class="coming-soon">
+          <span>😔</span>
+          Notes will be posted soon
+        </div>
+      `;
     }
 
-    async function loadSubjectImages(subject) {
-      imageMap[subject] = [];
-      currentIndex[subject] = 0;
-      let i = 1;
-      while (true) {
-        const url = `https://raw.githubusercontent.com/Next-Scholar/NextScholar/main/${subject}${i}.jpg`;
-        try {
-          const res = await fetch(url);
-          if (!res.ok) break;
-          imageMap[subject].push(url);
-          i++;
-        } catch {
-          break;
-        }
-      }
+    subjectsDiv.appendChild(container);
+  }
 
-      const imgEl = document.getElementById(`${subject}-image`);
-      const btns = document.getElementById(`${subject}-buttons`);
-      const container = document.getElementById(`${subject}-container`);
+  const imageIndexes = {};
 
-      if (imageMap[subject].length > 0) {
-        imgEl.style.display = 'inline';
-        btns.style.display = 'block';
-        showImage(subject);
-      } else {
-        container.innerHTML = `
-          <div class="coming-soon">
-            <span>😔</span>
-            Notes will be posted soon
-          </div>`;
-      }
-    }
+  function nextNote(prefix) {
+    if (!(prefix in imageIndexes)) imageIndexes[prefix] = 1;
+    imageIndexes[prefix]++;
+    const img = document.getElementById(`${prefix}-image`);
+    img.src = `${repoURL + prefix}${imageIndexes[prefix]}.jpg`;
+    img.onerror = () => {
+      imageIndexes[prefix] = 1;
+      img.src = `${repoURL + prefix}1.jpg`;
+    };
+  }
 
-    function showImage(subject) {
-      document.getElementById(`${subject}-image`).src = imageMap[subject][currentIndex[subject]];
-    }
+  function prevNote(prefix) {
+    if (!(prefix in imageIndexes)) imageIndexes[prefix] = 1;
+    imageIndexes[prefix] = Math.max(1, imageIndexes[prefix] - 1);
+    const img = document.getElementById(`${prefix}-image`);
+    img.src = `${repoURL + prefix}${imageIndexes[prefix]}.jpg`;
+  }
+</script>
 
-    function nextNote(subject) {
-      currentIndex[subject] = (currentIndex[subject] + 1) % imageMap[subject].length;
-      showImage(subject);
-    }
-
-    function prevNote(subject) {
-      currentIndex[subject] = (currentIndex[subject] - 1 + imageMap[subject].length) % imageMap[subject].length;
-      showImage(subject);
-    }
-
-    async function downloadAll(subject) {
-      for (let i = 0; i < imageMap[subject].length; i++) {
-        const a = document.createElement("a");
-        a.href = imageMap[subject][i];
-        a.download = `${subject}${i+1}.jpg`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
-    }
-  </script>
 </body>
 </html>
